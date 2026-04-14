@@ -1,0 +1,32 @@
+{
+    "name": "devcontainer",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "features": {},
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.defaultInterpreterPath": ".venv/bin/python"
+            },
+            "extensions": [
+                "ms-python.python",
+                "charliermarsh.ruff",
+                "bodil.prettier-toml",
+                "redhat.vscode-yaml",
+                "ms-toolsai.jupyter",
+                "mechatroner.rainbow-csv"
+            ]
+        }
+    },
+    "containerEnv": {
+        "UV_LINK_MODE": "copy"
+    },
+    "mounts": [
+        "source=${env:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+        "source=${env:HOME}/.ssh/config_no_keychain,target=/home/vscode/.ssh/config,type=bind,consistency=cached",
+        "source=${env:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
+    ],
+    "postCreateCommand": "uv sync",
+    "postStartCommand": "echo alias ll=\\'ls -alF\\' >> ~/.bash_aliases"
+}

@@ -1,32 +1,26 @@
 {
-    "name": "devcontainer",
+    "name": "bayes_monte",
     "build": {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "Dockerfile",
+        "context": ".."
     },
-    "features": {},
     "customizations": {
         "vscode": {
             "settings": {
-                "python.defaultInterpreterPath": ".venv/bin/python"
+                "python.defaultInterpreterPath": "/opt/conda/envs/bayes_monte/bin/python"
             },
             "extensions": [
                 "ms-python.python",
+                "ms-toolsai.jupyter",
                 "charliermarsh.ruff",
                 "bodil.prettier-toml",
-                "redhat.vscode-yaml",
-                "ms-toolsai.jupyter",
-                "mechatroner.rainbow-csv"
+                "anthropic.claude-vscode"
             ]
         }
     },
     "containerEnv": {
         "UV_LINK_MODE": "copy"
     },
-    "mounts": [
-        "source=${env:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
-        "source=${env:HOME}/.ssh/config_no_keychain,target=/home/vscode/.ssh/config,type=bind,consistency=cached",
-        "source=${env:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
-    ],
-    "postCreateCommand": "uv sync",
+    "postCreateCommand": "micromamba run -n bayes_monte uv pip install --system -r pyproject.toml",
     "postStartCommand": "echo alias ll=\\'ls -alF\\' >> ~/.bash_aliases"
 }

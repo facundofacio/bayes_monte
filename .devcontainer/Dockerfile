@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     graphviz \
+    expect \
     && apt-get clean
 
 

@@ -4,6 +4,9 @@
         "dockerfile": "Dockerfile",
         "context": ".."
     },
+    "mounts": [
+        "source=claude-config,target=/home/vscode/.claude,type=volume"
+    ],
     "customizations": {
         "vscode": {
             "settings": {
@@ -21,6 +24,6 @@
     "containerEnv": {
         "UV_LINK_MODE": "copy"
     },
-    "postCreateCommand": "micromamba run -n bayes_monte uv pip install --system -r pyproject.toml",
+    "postCreateCommand": ".devcontainer/postCreate.sh",
     "postStartCommand": "echo alias ll=\\'ls -alF\\' >> ~/.bash_aliases"
 }
